@@ -18,7 +18,8 @@
   <url type="bugtracker">https://github.com/mavlink/mavros/issues</url>
 
   <buildtool_depend>catkin</buildtool_depend>
-
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
   <build_depend>cmake_modules</build_depend>
   <depend>mavros</depend>
   <depend>roscpp</depend>
@@ -30,7 +31,7 @@
   <depend>urdf</depend>
   <depend>tf</depend>
   <depend>tf2_eigen</depend>
-
+  <depend>msg_pkg</depend>
   <export>
     <mavros plugin="${prefix}/mavros_plugins.xml" />
     <rosdoc config="rosdoc.yaml" />

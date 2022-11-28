@@ -5,12 +5,14 @@ project(mavros_extras)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  msg_pkg
   geometry_msgs
   mavros
   mavros_msgs
   roscpp
   sensor_msgs
   std_msgs
+  message_generation
   tf
   tf2_eigen
   urdf
@@ -37,6 +39,15 @@ include(MavrosMavlink)
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
 # catkin_python_setup()
 
+#add_message_files(
+#   FILES
+#   smr_msg.msg
+# )
+
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+  )
 
 
 ###################################
@@ -51,9 +62,10 @@ include(MavrosMavlink)
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES
-  CATKIN_DEPENDS geometry_msgs mavros mavros_msgs roscpp sensor_msgs std_msgs visualization_msgs
+  CATKIN_DEPENDS msg_pkg geometry_msgs mavros mavros_msgs roscpp sensor_msgs std_msgs visualization_msgs message_runtime
   DEPENDS Boost
 )
+
 
 ###########
 ## Build ##
@@ -97,6 +109,7 @@ add_library(mavros_extras
   src/plugins/vision_speed_estimate.cpp
   src/plugins/wheel_odometry.cpp
   src/plugins/guided_target.cpp
+  src/plugins/server_mission_request.cpp 
 )
 add_dependencies(mavros_extras
   ${catkin_EXPORTED_TARGETS}
