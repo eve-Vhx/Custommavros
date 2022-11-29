@@ -62,7 +62,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES
-  CATKIN_DEPENDS msg_pkg geometry_msgs mavros mavros_msgs roscpp sensor_msgs std_msgs visualization_msgs message_runtime
+  CATKIN_DEPENDS geometry_msgs mavros mavros_msgs roscpp sensor_msgs std_msgs visualization_msgs message_runtime actionlib_messages msg_pkg
   DEPENDS Boost
 )
 
@@ -109,7 +109,8 @@ add_library(mavros_extras
   src/plugins/vision_speed_estimate.cpp
   src/plugins/wheel_odometry.cpp
   src/plugins/guided_target.cpp
-  src/plugins/server_mission_request.cpp 
+  #src/plugins/server_mission_request.cpp 
+  src/plugins/server_px4_mission_req.cpp
 )
 add_dependencies(mavros_extras
   ${catkin_EXPORTED_TARGETS}
