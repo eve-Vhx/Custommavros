@@ -9,7 +9,7 @@
 namespace mavros {
 namespace extra_plugins{
 
-class ServerPx4RequestPlugin : public plugin::PluginBase {
+class ServerPx4MissionRequestPlugin : public plugin::PluginBase {
 
 protected:
     actionlib::SimpleActionServer<msg_pkg::server_px4_reqAction> as_;
@@ -18,9 +18,9 @@ protected:
     msg_pkg::server_px4_reqResult result_;
 
 public:
-    ServerPx4RequestPlugin() : 
+    ServerPx4MissionRequestPlugin() : 
         PluginBase(), 
-        as_(nh, "d1_cmd_action", boost::bind(&ServerPx4RequestPlugin::actionCB, this, _1), false),
+        as_(nh, "d1_cmd_action", boost::bind(&ServerPx4MissionRequestPlugin::actionCB, this, _1), false),
         action_name_("d1_cmd_action"),
         nh("~smr_command")
 
@@ -28,7 +28,7 @@ public:
         as_.start();
     };
 
-    ~ServerPx4RequestPlugin(void)
+    ~ServerPx4MissionRequestPlugin(void)
     {        
     }
 
