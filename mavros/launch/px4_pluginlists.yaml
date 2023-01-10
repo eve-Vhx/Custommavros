@@ -10,6 +10,17 @@ plugin_blacklist: []
 
 
 plugin_whitelist:
-- smr_command
+#- smr_command
 - 'sys_*'
 - mount_control
+- smr_px4_command
+- gps_status
+- distance_sensor
+- landing_target
+- px4_flow
+- vibration
+- imu
+- waypoint
+- global_position
+- altitude
+- setpoint_velocity

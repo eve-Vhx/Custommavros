@@ -11,22 +11,17 @@ namespace extra_plugins{
 
 class ServerPx4MissionRequestPlugin : public plugin::PluginBase {
 
-protected:
-    actionlib::SimpleActionServer<msg_pkg::server_px4_reqAction> as_;
-    std::string action_name_;
-    msg_pkg::server_px4_reqFeedback feedback_;
-    msg_pkg::server_px4_reqResult result_;
 
 public:
     ServerPx4MissionRequestPlugin() : 
         PluginBase(), 
-        as_(nh, "d1_cmd_action", boost::bind(&ServerPx4MissionRequestPlugin::actionCB, this, _1), false),
-        action_name_("d1_cmd_action"),
-        nh("~smr_command")
+        nh("~smr_px4_command"),
+        as_(nh, "d1_cmd_action", boost::bind(&ServerPx4MissionRequestPlugin::actionCB, this, _1), false)
 
     { 
         as_.start();
     };
+
 
     ~ServerPx4MissionRequestPlugin(void)
     {        
@@ -40,7 +35,7 @@ public:
 
     void actionCB(const msg_pkg::server_px4_reqGoalConstPtr &goal)
     {
-
+        ROS_INFO("Inside action callback");
         mavlink::common::msg::SERVER_MISSION_REQUEST smr {};
         smr.mission_type = goal->mission_type;
         smr.lon = goal->lon;
@@ -68,6 +63,9 @@ public:
 
 private:
     ros::NodeHandle nh;
+    actionlib::SimpleActionServer<msg_pkg::server_px4_reqAction> as_;
+    msg_pkg::server_px4_reqFeedback feedback_;
+    msg_pkg::server_px4_reqResult result_;
 
 
 };
