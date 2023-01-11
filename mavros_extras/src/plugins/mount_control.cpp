@@ -310,7 +310,7 @@ private:
 		cmd.param7 = req->mode;	// MAV_MOUNT_MODE
 
 		UAS_FCU(m_uas)->send_message_ignore_drop(cmd);
-
+		
 		mount_diag.set_setpoint(req->roll*0.01f, req->pitch*0.01f, req->yaw*0.01f, req->mode);
 	}
 

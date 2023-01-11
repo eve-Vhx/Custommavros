@@ -11,5 +11,8 @@ plugin_blacklist: []
 
 plugin_whitelist:
 - smr_command
+#- smr_px4_command
 - 'sys_*'
 - mount_control
+- actuator_control
+#- smr_px4_command
