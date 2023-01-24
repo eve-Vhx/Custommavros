@@ -68,11 +68,12 @@ public:
         //std::cout << "PX4 Status: " << px4_status << std::endl;
     }
 
-     Subscriptions get_subscriptions()
+    Subscriptions get_subscriptions() override
     {
-        return {/* RX disabled */ };
+        return {
+            make_handler(&ServerPx4MissionRequestPlugin::handle_missionstate)
+        };
     }
-
 private:
     ros::NodeHandle nh;
     actionlib::SimpleActionServer<msg_pkg::server_px4_reqAction> as_;
@@ -81,6 +82,19 @@ private:
     ros::Subscriber connections_sub;
     bool px4_status;
 
+    ros::Publisher srv_m_st_pub;
+
+    void handle_missionstate(const mavlink::mavlink_message_t *msg, mavlink::common::msg::SERVER_MISSION_STATE &srv_m_st) {
+        auto srv_m_st_msg = boost::make_shared<msg_pkg::server_mission_state>();
+        srv_m_st_msg->timestamp = srv_m_st.timestamp;
+        srv_m_st_msg->mission_type = srv_m_st.mission_type;
+        srv_m_st_msg->lat = srv_m_st.lat;
+        srv_m_st_msg->lon = srv_m_st.lon;
+        srv_m_st_msg->alt = srv_m_st.alt;
+        srv_m_st_msg->yaw = srv_m_st.yaw;
+        srv_m_st_msg->state = srv_m_st.state;
+        srv_m_st_pub.publish(srv_m_st_msg);
+    }
 
 };
 }   // namespace extra_plugins
