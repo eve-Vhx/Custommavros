@@ -56,17 +56,29 @@ public:
         }
     }
 
-     Subscriptions get_subscriptions()
+    Subscriptions get_subscriptions() override
     {
-        return {/* RX disabled */ };
+        return {
+            make_handler(&ServerPx4MissionRequestPlugin::handle_missionrequest)
+        };
     }
-
 private:
     ros::NodeHandle nh;
     actionlib::SimpleActionServer<msg_pkg::server_px4_reqAction> as_;
     msg_pkg::server_px4_reqFeedback feedback_;
     msg_pkg::server_px4_reqResult result_;
+    ros::Publisher rangefinder_pub;
 
+    void handle_missionrequest(const mavlink::mavlink_message_t *msg, mavlink::common::msg::SERVER_MISSION_REQUEST &srv_m) {
+        auto srv_m_msg = boost::make_shared<sensor_msgs::Range>();
+        srv_m_msg->timestamp = srv_m.timestamp;
+        srv_m_msg->mission_type = srv_m.mission_type;
+        srv_m_msg->lat = srv_m.lat;
+        srv_m_msg->lon = srv_m.lon;
+        srv_m_msg->alt = srv_m.alt;
+        srv_m_msg->yaw = srv_m.yaw;
+        srv_m_pub.publish(srv_m_msg);
+    }
 
 };
 }   // namespace extra_plugins
