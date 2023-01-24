@@ -59,7 +59,7 @@ public:
     Subscriptions get_subscriptions() override
     {
         return {
-            make_handler(&ServerPx4MissionRequestPlugin::handle_missionrequest)
+            make_handler(&ServerPx4MissionRequestPlugin::handle_missionstate)
         };
     }
 private:
@@ -67,17 +67,18 @@ private:
     actionlib::SimpleActionServer<msg_pkg::server_px4_reqAction> as_;
     msg_pkg::server_px4_reqFeedback feedback_;
     msg_pkg::server_px4_reqResult result_;
-    ros::Publisher rangefinder_pub;
+    ros::Publisher srv_m_st_pub;
 
-    void handle_missionrequest(const mavlink::mavlink_message_t *msg, mavlink::common::msg::SERVER_MISSION_REQUEST &srv_m) {
-        auto srv_m_msg = boost::make_shared<sensor_msgs::Range>();
-        srv_m_msg->timestamp = srv_m.timestamp;
-        srv_m_msg->mission_type = srv_m.mission_type;
-        srv_m_msg->lat = srv_m.lat;
-        srv_m_msg->lon = srv_m.lon;
-        srv_m_msg->alt = srv_m.alt;
-        srv_m_msg->yaw = srv_m.yaw;
-        srv_m_pub.publish(srv_m_msg);
+    void handle_missionstate(const mavlink::mavlink_message_t *msg, mavlink::common::msg::SERVER_MISSION_STATE &srv_m_st) {
+        auto srv_m_st_msg = boost::make_shared<msg_pkg::server_mission_state>();
+        srv_m_st_msg->timestamp = srv_m_st.timestamp;
+        srv_m_st_msg->mission_type = srv_m_st.mission_type;
+        srv_m_st_msg->lat = srv_m_st.lat;
+        srv_m_st_msg->lon = srv_m_st.lon;
+        srv_m_st_msg->alt = srv_m_st.alt;
+        srv_m_st_msg->yaw = srv_m_st.yaw;
+        srv_m_st_msg->state = srv_m_st.state;
+        srv_m_st_pub.publish(srv_m_st_msg);
     }
 
 };
