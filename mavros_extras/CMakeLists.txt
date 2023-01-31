@@ -6,6 +6,7 @@ project(mavros_extras)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   msg_pkg
+  mavlink
   geometry_msgs
   mavros
   mavros_msgs

@@ -5,6 +5,7 @@
 #include <actionlib/server/simple_action_server.h>
 #include <msg_pkg/server_px4_reqAction.h>
 #include <msg_pkg/connections_drone.h>
+#include <msg_pkg/serv_mission_st.h>
 #include <string>
 #include "ros/ros.h"
 //#include <mavros_extras/smr_msg.h>
@@ -55,7 +56,7 @@ public:
             bool success = true;
 
             if(success){
-                result_.mission_completion = 1;
+                result_.mission_req_status = 1;
                 // set the action state to succeeded
                 as_.setSucceeded(result_);
             }
@@ -85,13 +86,13 @@ private:
     ros::Publisher srv_m_st_pub;
 
     void handle_missionstate(const mavlink::mavlink_message_t *msg, mavlink::common::msg::SERVER_MISSION_STATE &srv_m_st) {
-        auto srv_m_st_msg = boost::make_shared<msg_pkg::server_mission_state>();
+        auto srv_m_st_msg = boost::make_shared<msg_pkg::serv_mission_st>();
         srv_m_st_msg->timestamp = srv_m_st.timestamp;
         srv_m_st_msg->mission_type = srv_m_st.mission_type;
         srv_m_st_msg->lat = srv_m_st.lat;
         srv_m_st_msg->lon = srv_m_st.lon;
         srv_m_st_msg->alt = srv_m_st.alt;
-        srv_m_st_msg->yaw = srv_m_st.yaw;
+        srv_m_st_msg->yaw_rad = srv_m_st.yaw;
         srv_m_st_msg->state = srv_m_st.state;
         srv_m_st_pub.publish(srv_m_st_msg);
     }
