@@ -38,6 +38,7 @@
          smr.alt = req->alt;
          smr.yaw = req->yaw_rad;
          smr.timestamp = req->timestamp;
+         smr.cruise_alt = req->cruise_alt;
          UAS_FCU(m_uas)->send_message_ignore_drop(smr);
          std::cout<< "Message sent" << std::endl;
      }

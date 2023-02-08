@@ -24,6 +24,8 @@ public:
     { 
         as_.start();
         connections_sub = nh.subscribe("/d1_connection_checks", 10, &ServerPx4MissionRequestPlugin::connectionCB, this);
+        srv_m_st_pub = nh.advertise<msg_pkg::serv_mission_st>("server_mission_state", 10);
+
     };
 
 
@@ -42,13 +44,14 @@ public:
         ROS_INFO("Inside action callback");
         if(px4_status == true) {
             ROS_INFO("Passed Rpi connection checks... Sending mission");
-            mavlink::common::msg::SERVER_MISSION_REQUEST smr {};
+            mavlink::server_mission_request::msg::SERVER_MISSION_REQUEST smr {};
             smr.mission_type = goal->mission_type;
             smr.lon = goal->lon;
             smr.lat = goal->lat;
             smr.alt = goal->alt;
             smr.yaw = goal->yaw_rad;
             smr.timestamp = goal->timestamp;
+            smr.cruise_alt = goal->cruise_alt;
             UAS_FCU(m_uas)->send_message_ignore_drop(smr);
             std::cout<< "Publishing to px4... Mission details | lat: "<< goal->lat << ", lon: " << goal->lon << ", alt: " << goal->alt << std::endl;
 
@@ -85,7 +88,7 @@ private:
 
     ros::Publisher srv_m_st_pub;
 
-    void handle_missionstate(const mavlink::mavlink_message_t *msg, mavlink::common::msg::SERVER_MISSION_STATE &srv_m_st) {
+    void handle_missionstate(const mavlink::mavlink_message_t *msg, mavlink::server_mission_request::msg::SERVER_MISSION_STATE &srv_m_st) {
         auto srv_m_st_msg = boost::make_shared<msg_pkg::serv_mission_st>();
         srv_m_st_msg->timestamp = srv_m_st.timestamp;
         srv_m_st_msg->mission_type = srv_m_st.mission_type;
@@ -94,6 +97,7 @@ private:
         srv_m_st_msg->alt = srv_m_st.alt;
         srv_m_st_msg->yaw_rad = srv_m_st.yaw;
         srv_m_st_msg->state = srv_m_st.state;
+        srv_m_st_msg->cruise_alt = srv_m_st.cruise_alt;
         srv_m_st_pub.publish(srv_m_st_msg);
     }
 
