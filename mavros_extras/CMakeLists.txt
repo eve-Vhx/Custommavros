@@ -111,7 +111,8 @@ add_library(mavros_extras
   src/plugins/wheel_odometry.cpp
   src/plugins/guided_target.cpp
   #src/plugins/server_mission_request.cpp 
-  src/plugins/server_px4_mission_req.cpp
+  #src/plugins/server_px4_mission_req.cpp
+  src/plugins/server_px4_route.cpp
 )
 add_dependencies(mavros_extras
   ${catkin_EXPORTED_TARGETS}

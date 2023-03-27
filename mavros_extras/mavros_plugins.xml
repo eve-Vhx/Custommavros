@@ -93,11 +93,14 @@
   <class name="mag_calibration_status" type="mavros::std_plugins::MagCalStatusPlugin" base_class_type="mavros::plugin::PluginBase">
     <description>Send calibration status to ROS.</description>
   </class>
-  <class name="smr_command" type="mavros::extra_plugins::ServerMissionRequestPlugin" base_class_type="mavros::plugin::PluginBase">
+  <!-- <class name="smr_command" type="mavros::extra_plugins::ServerMissionRequestPlugin" base_class_type="mavros::plugin::PluginBase">
      <description>Accepts server mission requests.</description>
-  </class>
-  <class name="smr_px4_command" type="mavros::extra_plugins::ServerPx4MissionRequestPlugin" base_class_type="mavros::plugin::PluginBase">
+  </class> -->
+  <!-- <class name="smr_px4_command" type="mavros::extra_plugins::ServerPx4MissionRequestPlugin" base_class_type="mavros::plugin::PluginBase">
      <description>Accepts server mission requests and sends to px4.</description>
+  </class> -->
+  <class name="smr_px4_route" type="mavros::extra_plugins::ServerPx4RoutePlugin" base_class_type="mavros::plugin::PluginBase">
+     <description>Handles communication between the server and px4.</description>
   </class>
   <class name="guided_target" type="mavros::extra_plugins::GuidedTargetPlugin" base_class_type="mavros::plugin::PluginBase">
      <description>Send guided target.</description>

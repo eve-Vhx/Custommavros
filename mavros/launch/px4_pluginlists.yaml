@@ -19,7 +19,8 @@ plugin_whitelist:
 #- smr_command
 - 'sys_*'
 - mount_control
-- smr_px4_command
+- smr_px4_route
+#- smr_px4_command
 - gps_status
 - distance_sensor
 - landing_target
