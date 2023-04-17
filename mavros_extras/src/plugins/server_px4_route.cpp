@@ -47,6 +47,11 @@ public:
 
         mavlink::server_mission_request::msg::SERVER_MISSION_WAYPOINTS_REQUEST waypoints_smr {};
         waypoints_smr.mission_type = waypoint_goal->mission_type;
+
+        waypoints_smr.lon = waypoint_goal->dest_lon;
+        waypoints_smr.lat = waypoint_goal->dest_lat;
+        waypoints_smr.alt = waypoint_goal->dest_alt;
+        
         waypoints_smr.yaw = waypoint_goal->yaw_rad;
         waypoints_smr.cruise_alt = waypoint_goal->cruise_alt;
         waypoints_smr.timestamp = waypoint_goal->timestamp;
