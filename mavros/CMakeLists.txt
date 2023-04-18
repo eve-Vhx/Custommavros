@@ -121,36 +121,36 @@ if(NOT APPLE)
 endif()
 
 add_library(mavros_plugins
-  src/plugins/3dr_radio.cpp
-  src/plugins/actuator_control.cpp
-  src/plugins/altitude.cpp
+  # src/plugins/3dr_radio.cpp
+  # src/plugins/actuator_control.cpp
+  # src/plugins/altitude.cpp
   src/plugins/command.cpp
-  src/plugins/dummy.cpp
+  # src/plugins/dummy.cpp
   src/plugins/ftp.cpp
-  src/plugins/geofence.cpp
+  # src/plugins/geofence.cpp
   src/plugins/global_position.cpp
-  src/plugins/hil.cpp
-  src/plugins/home_position.cpp
-  src/plugins/imu.cpp
-  src/plugins/local_position.cpp
-  src/plugins/manual_control.cpp
-  src/plugins/mission_protocol_base.cpp
-  src/plugins/nav_controller_output.cpp
-  src/plugins/param.cpp
-  src/plugins/rallypoint.cpp
-  src/plugins/rc_io.cpp
-  src/plugins/safety_area.cpp
-  src/plugins/setpoint_accel.cpp
-  src/plugins/setpoint_attitude.cpp
-  src/plugins/setpoint_position.cpp
-  src/plugins/setpoint_raw.cpp
-  src/plugins/setpoint_velocity.cpp
-  src/plugins/setpoint_trajectory.cpp
-  src/plugins/sys_status.cpp
-  src/plugins/sys_time.cpp
-  src/plugins/vfr_hud.cpp
-  src/plugins/waypoint.cpp
-  src/plugins/wind_estimation.cpp
+  # src/plugins/hil.cpp
+  # src/plugins/home_position.cpp
+  # src/plugins/imu.cpp
+  # src/plugins/local_position.cpp
+  # src/plugins/manual_control.cpp
+  # src/plugins/mission_protocol_base.cpp
+  # src/plugins/nav_controller_output.cpp
+  # src/plugins/param.cpp
+  # src/plugins/rallypoint.cpp
+  # src/plugins/rc_io.cpp
+  # src/plugins/safety_area.cpp
+  # src/plugins/setpoint_accel.cpp
+  # src/plugins/setpoint_attitude.cpp
+  # src/plugins/setpoint_position.cpp
+  # src/plugins/setpoint_raw.cpp
+  # src/plugins/setpoint_velocity.cpp
+  # src/plugins/setpoint_trajectory.cpp
+  # src/plugins/sys_status.cpp
+  # src/plugins/sys_time.cpp
+  # src/plugins/vfr_hud.cpp
+  # src/plugins/waypoint.cpp
+  # src/plugins/wind_estimation.cpp
 )
 add_dependencies(mavros_plugins
   mavros
